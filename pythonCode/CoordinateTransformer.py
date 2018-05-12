@@ -33,3 +33,21 @@ class CartesianToSphericalTransformer(CoordinateTransformerBase):
         return pd.DataFrame({'r' : r, 
                             'theta' : np.arccos(z / r),
                             'phi' : np.arctan2(y, x)})
+
+#3éüå≥íºåç¿ïWÇ©ÇÁâ~íåç¿ïWÇ…ïœä∑Ç∑ÇÈ
+class CartesianToCylindricalTransformer(CoordinateTransformerBase):
+    def __init__(self):
+        pass
+    def transform(self, X):
+        if type(X) is pd.DataFrame :
+            x = X['x']
+            y = X['y']
+            z = X['z']
+        else:
+            x = [row[0] for row in X]
+            y = [row[1] for row in X]
+            z = [row[2] for row in X]
+        r = np.sqrt(np.power(x, 2) + np.power(y, 2))
+        return pd.DataFrame({'r'     : np.sqrt(np.power(x, 2) + np.power(y, 2)), 
+                               'theta' : np.arctan2(y, x),
+                               'zeta'   : z})
